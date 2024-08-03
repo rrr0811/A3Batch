@@ -1,0 +1,265 @@
+Page Object Model(POM):
+========================
+> It is a Designing pattern which is used in Automation to write scripts independent of the Web element identification
+> We write a seperate Java Class for each and every page of the Web Application
+> It is also called as Element Repository of a Particular WebPage
+> In POM we will store Elements and Business Logic if needed.
+
+> If we store the Elements In their Respective Page Classes, their was a problem occurred called as StaleElementReferenceException , because of using same link, it will be not fresh after a use(i.e refreshed, loaded)
+
+> POM started implementing PageFactory class
+> Each WebPage they made into WebPage Elements storing Classes
+
+> @FindBy
+The @FindBy annotation is used to locate one or more WebElements using a single criterion. For example, to identify all elements that have the same class attribute, we could use the following identification:
+
+
+> Syntax:
+============
+
+@FindBy(Locator="locatorvalue")
+private WebElement webElementName;
+
+@FindBy(Locator="locatorvalue")
+private List<WebElement> webElementName;
+
+
+@FindBys and @FindAll :
+-------------------------------------
+In some cases we want (or need) to use more than a single criterion to identify one or more objects, for instance when page elements do not have a unique ID. In this case, there are two possible annotations that can be used:
+
+> The @FindBys annotation is used in case elements need to match all of the given criteria
+
+> The @FindAll annotation is used in case elements need to match at least one of the given criteria
+
+syntax for @FindBys:
+-------------------------------
+@FindBys({
+	@FindBy(Locator1="locatorvalue1"),
+	@FindBy(Locator2="locatorvalue2")
+})
+private WebElement webElementName;
+
+> here it will work only when both criteria's are matching.
+
+syntax for @FindAll:
+-----------------------------
+@FindAll({
+	@FindBy(Locator1="locatorvalue1"),
+	@FindBy(Locator2="locatorvalue2")
+})
+private WebElement webElementName;
+
+> here it will work when any one of the criteria matches.
+> it is used as a concept called AutoHealing
+
+AutoHeading :
+---------------------
+> if one locator is not working it will check for another locator when we are using @FindAll annotation, so possiblity of getting NoSuchElementException is negligible since we have either or choice, this concept is called as AutoHealing in Elements.
+
+How To Use Pom:
+===============
+> Create a constructor in the page class and pass a WebDriver to the constructor
+
+> And then call Pagefactory class and initialize the elements and driver instance to avoid Exceptions
+
+> Syntax:
+==========
+
+PageFactory.initElements(WebDriver, object page)
+
+--------------------------------------------------------------
+public BasePage(WebDriver driver) {
+	PageFactory.initElements(driver, this);
+}
+
+
+--------------------------------------------------------------
+	@FindBy(partialLinkText = "Electronics")
+	private WebElement electronicsLink;
+
+	@FindBy(partialLinkText = "Register")
+	private WebElement registerLink;
+	
+	public WebElement getElectronicsLink() {
+		return electronicsLink;
+	}
+
+	public WebElement getRegisterLink() {
+		return registerLink;
+	}
+
+-----------------------------------------------------------------
+Advantages of POM:
+====================
+
+> To handle staleElementReference exception (i.e using @FindBy)
+> Maintainance of WebElements is Easy
+> Reusablity of the Code
+> Readability of the code is easy
+
+Procedure to be followed while using POM:
+==========================================
+> Create a java class for each page of the application and suffix the name of the class with Page
+> Store the elements of that Respective page in that class using @FindBy
+> Initialize all the elements with Pagefactory.initElements(driver, this)
+	
+initElements(): 
+-----------------------
+initElements is a static method in Page Factory class. Using the initElements method, one can initialize all the web elements located by @FindBy annotation.
+
+> Provide a private access specifier to all the elements and provide getters for the same
+
+---------------------------------------------------------------------------------------------
+
+
+public class BasePage extends BaseClass {
+	
+	public BasePage(WebDriver driver) {
+		PageFactory.initElements(driver, this);
+	}
+	
+	@FindBy(linkText = "Register")
+	private WebElement registerLink; 
+	
+	@FindBy(linkText = "Log in")
+	private WebElement loginLink; 
+	
+	@FindBy(xpath = "//span[text()='Shopping cart']")
+	private WebElement shoppingCartLink; 
+	
+	@FindBy(xpath = "//span[text()='Wishlist']")
+	private WebElement wishlistLink; 
+	
+	@FindBy(id = "small-searchterms")
+	private WebElement searchBox;
+	
+	@FindBy(xpath = "//input[@value='Search']")
+	private WebElement searchButton;
+	
+	@FindBy(partialLinkText = "BOOKS")
+	private WebElement books;
+	
+	@FindBy(partialLinkText = "COMPUTERS")
+	private WebElement computers;
+	
+	@FindBy(partialLinkText = "ELECTRONICS")
+	private WebElement electronics;
+	
+	@FindBy(partialLinkText = "APPARELS & SHOES")
+	private WebElement apparalesAndShoes;
+	
+	@FindBy(partialLinkText = "DIGITAL DOWNLOADS")
+	private WebElement digitalDownloads;
+	
+	@FindBy(partialLinkText = "JEWELRY")
+	private WebElement jewelry;
+	
+	@FindBy(partialLinkText = "GIFT CARDS")
+	private WebElement giftCards;
+
+	public WebElement getRegisterLink() {
+		return registerLink;
+	}
+
+	public WebElement getLoginLink() {
+		return loginLink;
+	}
+
+	public WebElement getShoppingCartLink() {
+		return shoppingCartLink;
+	}
+
+	public WebElement getWishlistLink() {
+		return wishlistLink;
+	}
+
+	public WebElement getSearchBox() {
+		return searchBox;
+	}
+
+	public WebElement getSearchButton() {
+		return searchButton;
+	}
+
+	public WebElement getBooks() {
+		return books;
+	}
+
+	public WebElement getComputers() {
+		return computers;
+	}
+
+	public WebElement getElectronics() {
+		return electronics;
+	}
+
+	public WebElement getApparalesAndShoes() {
+		return apparalesAndShoes;
+	}
+
+	public WebElement getDigitalDownloads() {
+		return digitalDownloads;
+	}
+
+	public WebElement getJewelry() {
+		return jewelry;
+	}
+
+	public WebElement getGiftCards() {
+		return giftCards;
+	}
+}
+---------------------------------------------------------------------------------------------
+
+
+public class LoginPage extends BasePage{
+	
+	public LoginPage(WebDriver driver) {
+		super(driver);
+	}
+
+	@FindBy(id = "Email")
+	private WebElement emailTextBox;
+	
+	@FindBy(id = "Password")
+	private WebElement passwordTextBox;
+	
+	@FindBy(id = "RememberMe")
+	private WebElement rememberMeCheckBox;
+	
+	@FindBy(partialLinkText = "Forgot password?")
+	private WebElement forgotPasswordLink;
+	
+	@FindBy(xpath = "//input[@value='Log in']")
+	private WebElement loginButton;
+	
+	@FindBy(xpath="//input[@value='Register']")
+	private WebElement registerButton;
+
+	public WebElement getEmailTextBox() {
+		return emailTextBox;
+	}
+
+	public WebElement getPasswordTextBox() {
+		return passwordTextBox;
+	}
+
+	public WebElement getRememberMeCheckBox() {
+		return rememberMeCheckBox;
+	}
+
+	public WebElement getForgotPasswordLink() {
+		return forgotPasswordLink;
+	}
+
+	public WebElement getLoginButton() {
+		return loginButton;
+	}
+
+	public WebElement getRegisterButton() {
+		return registerButton;
+	}
+}
+---------------------------------------------------------------------------------------------
+

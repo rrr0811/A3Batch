@@ -1,0 +1,137 @@
+Data Driven Testing/ Data Parameterization:
+============================================
+ We will store our Test Data in the external files and fetch the Test Data when ever it is required to our Test Script is called Data Driven Testing.
+
+Advantage of Data Driven Testing:
+------------------------------------
+> To avoid the hardcoding of the Test Data.
+> Security for our Test Data.
+> Maintenance of Test Data easy.
+> Reusability of Test Data.
+
+
+Data Driven Testing w.r.t
+
+1. Properties file
+2. Excel file
+
+1. Properties file:
+-------------------
+
+> It is a file where we will store the Test datas in Key value pairs and it will be stored in file.properties extension.
+
+> The datas that we will store will be in the form of String
+
+> Normally here we will store the Common Test data needed for most of the automation Test scripts used.
+
+> To fetch the Data from properties file no need of 3rd party tool we can achieve it with properties class present in java.util package
+
+How to fetch the Data from properties file :
+---------------------------------------------
+
+> step 1 : we have to File and FileInputStream class so that we can locate our properties file to read the data from it . 
+
+File f=new File(".\\test-data\\demoWebShop.properties");
+FileInputStream fis=new FileInputStream(f);
+
+> step 2 : we have to create object of properties class (present in java util)
+
+Properties prop=new Properties();
+
+> step 3 : we have to call load(InputStream in) method of Properties and pass FileInputStream object ref so that file will be loaded to read the value.
+
+prop.load(fis);
+
+> step 4 : we have to call getProperty(String key) method to fetch the value by passing the respective key.
+
+prop.getProperty("url");
+
+
+
+public class ToFetchDatasFromPropertiesFile {
+	public static void main(String[] args) throws IOException {
+		File f=new File(".\\test-data\\demoWebShop.properties");
+		FileInputStream fis=new FileInputStream(f);
+		Properties prop=new Properties();
+		prop.load(fis);
+		String url = prop.getProperty("url");
+		System.out.println(url);
+		System.out.println(prop.getProperty("email"));
+		System.out.println(prop.getProperty("password"));
+		
+	}
+}
+
+2. Excel file:
+-------------------
+
+> It is a file where we will store the Test datas in cells of many rows present in many sheets and it will be stored in file.xls or .xlsx extension.
+
+> The datas that we will store in many formats like number string Boolean as well
+
+> Normally here we will store the Testcase specific Test datas needed for each and every automation Test scripts
+
+> to fetch the data from excel sheet we need a 3rd party tool which provides us the interfaces which contains methods to fetch sheet rows and cells of excel and that tool name is "Apache Poi"
+
+Hierrachy of Apache poi interfaces:
+------------------------------------
+Workbook<<i>> represents our excel file
+Sheet<<i>> represents sheet present in excel file
+Row<<i>> represents row present in a sheet
+Cell<<i>> represents cell present in a row
+
+How to fetch the data from excel sheet :
+==========================================
+
+> step 1 : we have to File and FileInputStream class so that we can locate our excel file to read the data from it . 
+
+File f=new File(".\\test-data\\DWS.xlsx");
+FileInputStream fis=new FileInputStream(f);
+
+> step 2 : create a ref variable of Workbook<<I>> type and use create(InputStream in) method present in WorkbookFactory class to create object for workbook by passing fis.
+
+Workbook workbook=WorkbookFactory.create(fis);
+
+> step 3 :  create object of Sheet<<i>> by using getSheet(String sheetname) present in Workbook by passing sheetname.
+
+Sheet sheet = workbook.getSheet("Sheet1");
+
+> step 4 : create object of Row <<i>> by using getRow(int index) present in Sheet by passing index of required row
+
+Row row = sheet.getRow(1);
+
+> step 5 : create object of Cell <<i>> by using getCell(int index) present in Row by passing index of required cell
+
+Cell cell = row.getCell(2);
+
+> step 6 : get the data of the cell in String format by using toString()
+
+String data = cell.toString();
+
+public class FetchingDataFromExcel {
+	public static void main(String[] args) throws EncryptedDocumentException, IOException {
+		File file=new File(".\\test-resources\\DWS.xlsx");
+		FileInputStream fis=new FileInputStream(file);
+		Workbook workbook=WorkbookFactory.create(fis);
+		Sheet sheet = workbook.getSheet("Sheet1");
+		Row row = sheet.getRow(1);
+		Cell cell = row.getCell(2);
+		String data = cell.toString();
+
+		// or in single line we can write it as mentioned below
+		//String data=workbook.getSheet("Sheet1").getRow(1).getCell(2).toString();
+	}
+}
+
+note : 
+-------
+> to fetch the no of rows present in a sheet we can use a method called as getPhysicalNumberOfRows() : int
+
+int rowCount = sheet.getPhysicalNumberOfRows();
+
+> to fetch the no of cells in a row we can use a method called as getPhysicalNumberOfCells() : int
+
+int cellCount = row.getPhysicalNumberOfCells();
+
+ 
+

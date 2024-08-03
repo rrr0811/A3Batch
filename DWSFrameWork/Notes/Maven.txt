@@ -1,0 +1,171 @@
+Maven:
+===========
+
+> tool which is mainly used by Developers/ DevOps   (Ant, Maven, Gradle)
+> build tool
+
+	> Build Creation
+	> Build installation
+	> Build deployment
+	> Build testing
+
+
+Why Maven In Automation Testing :
+==================================
+> Dependency management / Handling dependencies is very easy
+> framework setup is quick and easy for new engineer
+> we can execute scripts in cmd line
+> profiling
+> passing a parameter at run time(Parameterization)
+
+
+What is .m2 ?
+==============
+> It is a local maven repo created by maven at the time of adding dependency
+
+
+Maven Folder Structure :
+==========================
+> Eclipse -> new -> Project ->Maven -> Maven Project -> Enter GroupId and Artifact Id -> Finsish
+					(create a simple project)
+
+
+Sample Maven Project :
+
+> src/main/java 		-> Generic Lib and POM repository
+> src/main/resources		-> driver.exe's and files related to Project
+> src/test/java			-> all the TestScripts(module wise)
+> src/test/resources 		-> test resources/ data required for test scripts
+> target  			-> in this folder all the reports will be stored if we run the test scripts from maven(emailable-report.html)
+> pom.xml			-> Project object model
+					(also called as project config file)
+
+
+> we can run all the Test Scripts that we have written in src/test/java at one shot using our pom.xml
+
+> precondition -> all the test Scripts should be having classes name suffixed with _Test
+
+> RunAs-> Maven test
+
+
+Convention :
+------------
+src/test/java --> TC_Register_001_Test 
+
+--> maven Commands	==> pom.xml
+
+mvn clean 		-->  clear the target folder
+mvn validate		-->  validating the entire framework
+mvn compile		-->  compile TestScripts and check for missing jars
+mvn test		-->  It tests your compiled source codes with unit testing frameworks
+
+Cyclic order--> maven Build life cycle
+
+mvn package
+mvn install
+mvn deploy
+
+
+
+Single testcase running :
+===========================
+
+we can run a single testing class present in src/test/java by using a command in the command prompt
+
+commands :
+mvn -Dtest=packagename.classname test
+mvn test -Dtest=packagename.classname 
+
+
+Plugin to Execute TestNG xml files:
+=====================================
+after ending of dependencies tag
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>3.2.3</version>
+						<configuration>
+							<suiteXmlFiles>
+								<suiteXmlFile>Smoketestng.xml</suiteXmlFile>
+								<suiteXmlFile>Basictestng.xml</suiteXmlFile>
+							</suiteXmlFiles>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+
+Maven Profiling :
+=====================
+> When ever Framework contains multiple testing xml files, In order to execute a particular xml via POM.xml , we go for profiling
+
+> mvn test -P idname
+(we have to specify which profile we want to run by giving the id of that particular file)
+
+
+	<profiles>
+		<profile>
+			<id>Group1</id>
+		<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>3.2.3</version>
+						<configuration>
+							<suiteXmlFiles>
+								<suiteXmlFile>Smoketestng.xml</suiteXmlFile>
+							</suiteXmlFiles>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			</profile>
+				<profile>
+			<id>Group2</id>
+		<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>3.2.3</version>
+						<configuration>
+							<suiteXmlFiles>
+								<suiteXmlFile>Basictestng.xml</suiteXmlFile>
+							</suiteXmlFiles>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			</profile>
+
+	</profiles>
+
+
+Maven Parameter(parameterization)
+==================================
+
+> using Maven parameter, we can pass the data from the command line at the run Time
+> mvn -Dtest=MavenParameterTest -Durl=https://www.google.com -Ddata=KGFchapter1 test
+
+public class MavenParameterTest {
+	@Test
+	public void launchingGoogleUsingParameterization() {
+		ChromeDriver driver= new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		String URL=System.getProperty("url");
+		driver.get(URL);
+		String TESTDATA=System.getProperty("data");
+		driver.findElement(By.name("q")).sendKeys(TESTDATA,Keys.ENTER);
+	}
+}
+
+
+
+
+
+
