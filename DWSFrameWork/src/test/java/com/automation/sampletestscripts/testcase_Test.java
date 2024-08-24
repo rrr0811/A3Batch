@@ -11,7 +11,6 @@ public class testcase_Test {
 		WebDriver driver=new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("https://www.instagram.com/harshu.gr/");
-		driver.close();
 		driver.quit();
 	}
 }
