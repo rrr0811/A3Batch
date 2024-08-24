@@ -2,24 +2,24 @@
 <testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-08-24T05:50:59 IST" name="Suite" finished-at="2024-08-24T05:51:12 IST" duration-ms="12928">
+  <suite started-at="2024-08-24T05:54:34 IST" name="Suite" finished-at="2024-08-24T05:54:47 IST" duration-ms="13360">
     <groups>
     </groups>
-    <test started-at="2024-08-24T05:50:59 IST" name="Test" finished-at="2024-08-24T05:51:12 IST" duration-ms="12928">
+    <test started-at="2024-08-24T05:54:34 IST" name="Test" finished-at="2024-08-24T05:54:47 IST" duration-ms="13360">
       <class name="com.automation.batchexecutionscripts.BMW">
-        <test-method signature="bmw()[pri:0, instance:com.automation.batchexecutionscripts.BMW@470734c3]" started-at="2024-08-24T05:51:03 IST" name="bmw" finished-at="2024-08-24T05:51:06 IST" duration-ms="2734" status="PASS">
+        <test-method signature="bmw()[pri:0, instance:com.automation.batchexecutionscripts.BMW@27406a17]" started-at="2024-08-24T05:54:37 IST" name="bmw" finished-at="2024-08-24T05:54:40 IST" duration-ms="2328" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- bmw -->
       </class> <!-- com.automation.batchexecutionscripts.BMW -->
       <class name="com.automation.batchexecutionscripts.Harley">
-        <test-method signature="harley()[pri:0, instance:com.automation.batchexecutionscripts.Harley@2cf3d63b]" started-at="2024-08-24T05:51:06 IST" name="harley" finished-at="2024-08-24T05:51:12 IST" duration-ms="5630" status="PASS">
+        <test-method signature="harley()[pri:0, instance:com.automation.batchexecutionscripts.Harley@2af004b]" started-at="2024-08-24T05:54:40 IST" name="harley" finished-at="2024-08-24T05:54:47 IST" duration-ms="7354" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- harley -->
       </class> <!-- com.automation.batchexecutionscripts.Harley -->
       <class name="com.automation.batchexecutionscripts.Hayabusa">
-        <test-method signature="hayabusa()[pri:0, instance:com.automation.batchexecutionscripts.Hayabusa@2ddc9a9f]" started-at="2024-08-24T05:50:59 IST" name="hayabusa" finished-at="2024-08-24T05:51:03 IST" duration-ms="4499" status="PASS">
+        <test-method signature="hayabusa()[pri:0, instance:com.automation.batchexecutionscripts.Hayabusa@7526515b]" started-at="2024-08-24T05:54:34 IST" name="hayabusa" finished-at="2024-08-24T05:54:37 IST" duration-ms="3613" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- hayabusa -->
